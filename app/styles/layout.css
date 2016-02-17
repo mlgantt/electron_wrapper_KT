@@ -1,0 +1,88 @@
+ body {
+     margin: 0px;
+     overflow: hidden;
+ }
+ 
+ body * {
+     box-sizing: border-box;
+ }
+ 
+ p {
+     line-height: 18px;
+ }
+ 
+#containerLive, #containerPlay {
+    width: 50%;
+    float: left;
+    border: 1px outset black;
+    overflow: hidden;
+}
+ 
+ #interface {
+     position: absolute;
+     width: 100%;
+     height: 200px;
+     bottom: 0;
+     background: #CCC;
+     border-top: 2px outset black;
+ }
+ 
+ .leftControl {
+     width: 50%;
+     padding: 10px;
+     float: left;
+ }
+ 
+ .rightControl {
+     width: 50%;
+     padding: 10px;
+     float: right;
+ }
+ 
+ .wrapper {
+     padding: 10px;
+     margin:5px 0;
+     background: #ddd;
+     border-radius: 5px;
+     border: 1px solid #CCC;
+     float: left;
+    width: 100%;
+ }
+  .wrapper h3 {
+    margin:0;
+  }
+  #readings {
+    margin:0;
+    display: inline-block;
+  }
+ 
+ .play_controls {
+     display: none;
+ }
+ 
+ #playBtn, #resetBtn {
+    float: left;
+    margin-right: 10px;
+ }
+ 
+ #slider-range-min {
+     width: 400px;
+     float: left;
+     margin: 12px 0;
+ }
+ 
+ #modal input{
+     width: 100%;
+ }
+
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}
+
+.recordTime {
+    display: inline;
+}
+
+#recordBtn {
+    width: 105px;
+}

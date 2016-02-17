@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>KT Prototype</title>
+    <link rel="stylesheet" href="./js/vendor/jquery-ui-1.11.4.custom/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="styles/layout.css">
+</head>
+
+<body>
+
+    <div id="modal" title="Load Previous Session">
+        <p>Select a file from a previous session.</p>
+        <input type="file" id="fileinput" />
+    </div>
+
+    <div id="save-confirm" title="Save Recording?">
+        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Would like to save the previous recording?</p>
+    </div>
+ 
+    <div id="containerLive"></div>
+    <div id="containerPlay"></div>
+    
+    <div id="interface">
+        <div class="leftControl">
+            <div class="wrapper">
+                <button id="recordBtn">Record</button>
+                <div class="recordTime">00:00:00</div>
+            </div>
+            <div class="wrapper">
+                <h3>Status:</h3>
+                <div id="readings"></div>  
+            </div>
+        </div>
+        <div class="rightControl">
+            <div class="play_controls wrapper">
+                <button id="resetBtn">Replay</button>
+                <button id="playBtn">Play</button>
+                <div id="slider-range-min"></div>
+            </div>
+            <div class="wrapper">
+                <button id="loadBtn">Load File</button>
+            </div>
+        </div>
+    </div>
+
+    <!--    Vendor   -->
+    <script>window.$ = window.jQuery = require('./js/vendor/jquery-2.1.4.min.js');</script>
+    <script src="js/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
+    <script src="js/vendor/FileSaver.min.js"></script>
+
+    <!--    Three   -->
+    <script src="http://threejs.org/build/three.min.js"></script>
+    <script src="http://threejs.org/examples/js/loaders/OBJLoader.js"></script>
+    <script src="http://threejs.org/examples/js/Detector.js"></script>
+    <script src="http://threejs.org/examples/js/libs/stats.min.js"></script>
+    <script src="https://dl.dropboxusercontent.com/u/3587259/Code/Threejs/OrbitControls.js"></script>
+
+
+        <script type="x-shader/x-vertex" id="vertexShader">
+
+            varying vec3 vWorldPosition;
+
+            void main() {
+
+                vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
+                vWorldPosition = worldPosition.xyz;
+
+                gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+            }
+
+        </script>
+
+        <script type="x-shader/x-fragment" id="fragmentShader">
+
+            uniform vec3 topColor;
+            uniform vec3 bottomColor;
+            uniform float offset;
+            uniform float exponent;
+
+            varying vec3 vWorldPosition;
+
+            void main() {
+
+                float h = normalize( vWorldPosition + offset ).y;
+                gl_FragColor = vec4( mix( bottomColor, topColor, max( pow( max( h, 0.0 ), exponent ), 0.0 ) ), 1.0 );
+
+            }
+
+        </script>
+
+    <!--    My Stuff   -->
+    <script src="./js/liveView.js"></script>
+    <script src="./js/websocket.js"></script>
+</body>
+
+</html>
